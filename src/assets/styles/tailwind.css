@@ -1,8 +1,16 @@
 @import 'tailwindcss';
-@plugin "daisyui";
+/* @plugin "daisyui"; */
+@plugin "daisyui" {
+  themes: false;     /* 关键 1：彻底禁用 daisyUI 所有的自带主题颜色，防止改掉你本来的颜色系统 */
+  root: "#never-match-this"; /* 关键 2：把 daisyUI 注入全局的变量隔离，不让它挂载到 :root 下影响全局 */
+  
+  /* 选填：如果你只想打包特定组件来减少包体积，可以在这里指定，例如： */
+  /* include: modal, collapse, toggle; */
+}
 @plugin "@tailwindcss/typography";
 
-@variant dark (&:where(.dark, .dark *));
+/* @variant dark (&:where(.dark, .dark *)); */
+@variant dark (&:where(.dark, [data-theme="dark"], .dark *, [data-theme="dark"] *));
 
 @custom-variant intersect (&:not([no-intersect]));
 

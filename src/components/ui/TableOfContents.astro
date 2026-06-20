@@ -49,6 +49,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
           const id = entry.target.getAttribute('id');
           const correspondingLink = document.querySelector(`[data-toc-link][href="#${id}"]`);
 
+
           if (correspondingLink) {
             // 移除旧的高亮
             if (activeLink) {
@@ -73,6 +74,16 @@ const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
               'pl-[15px]'
             );
             activeLink = correspondingLink;
+
+            // 自动滚动 TOC 容器，使激活项可见
+            const tocContainer = document.querySelector('.toc-container');
+            if (tocContainer && correspondingLink) {
+              correspondingLink.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'nearest'
+              });
+            }
 
             // 滚动居中：将当前高亮的目录项滚动到 TOC 容器的可视中心
             const tocContainer = document.querySelector('.toc-container');

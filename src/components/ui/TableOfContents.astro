@@ -73,6 +73,16 @@ const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
               'pl-[15px]'
             );
             activeLink = correspondingLink;
+
+            // 自动滚动 TOC 容器，使激活项可见
+            const tocContainer = document.querySelector('.toc-container');
+            if (tocContainer && correspondingLink) {
+              correspondingLink.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'nearest'
+              });
+            }
           }
         }
       });
